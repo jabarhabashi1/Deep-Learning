@@ -233,7 +233,7 @@ This code is released under the permissive **MIT License** (see headers in each 
 
 *Pending DOI will be updated upon publication.*
 
-### Secondary citation requirement *(offset augmentation & AVCA)*
+### Secondary citation requirement *(VCA)*
 
 ```
 Silva, J. M. P. Nascimento & J. M. B. Dias, "Vertex Component Analysis: a Fast Algorithm to Unmix Hyperspectral Data," IEEE TGRS, 43(4):898–910, 2005.
