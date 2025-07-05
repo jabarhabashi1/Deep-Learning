@@ -1,5 +1,18 @@
 # Hyperspectral Mineral Mapping Toolbox
 
+**Description:**
+This repository provides an **end‑to‑end, research‑grade workflow** for quantitative mineral mapping from PRISMA (PRecursore IperSpettrale della Missione Applicativa) hyperspectral imagery. It spans every processing stage—from physics‑informed spectral‑library augmentation through adaptive endmember detection to a compact 3‑D Convolutional Neural Network (CNN)—and converts raw Level‑2D radiances into georeferenced mineral‐class and abundance maps that faithfully reproduce the results in our ISPRS JPRS manuscript on the McMurdo Dry Valleys, Antarctica.
+
+**Scientific scope and capabilities**
+
+* **Sensor coverage** – validated on PRISMA (400–2500 nm, 30 m, 239 bands) but configurable for AVIRIS‑NG, HyMap, EnMAP, DESIS, or laboratory cubes with minimal code changes.
+* **Spectral‑library augmentation** – stochastic offset perturbation, sub‑pixel mixture synthesis, and band‑specific noise injection generate >10 000 physically plausible reflectance spectra per class, mitigating class imbalance and enhancing model generalisation under novel illumination conditions.
+* **Adaptive VCA (AVCA)** – automatically estimates the intrinsic dimensionality *R* via Harsanyi’s virtual dimensionality (VD) test and employs SNR‑aware orthogonal projections to derive robust endmembers even under low contrast (SNR < 30 dB) and ice‑dust contamination.
+* **3‑D CNN classifier + soft‑unmixer** – an 8‑layer, 1.25 M‑parameter network with residual shortcuts that jointly learns spatial–spectral patterns in 27 × 27 × R hyper‑patches, outputting both crisp categorical maps and continuous abundance cubes through a dual‑branch Dice‑Focal loss architecture.
+* **Reproducibility & geospatial fidelity** – deterministic seeds, YAML experiment manifests, `conda‑lock` environment capture, and automatic propagation of ENVI map‑info (UTM 58S, WGS‑84) to all outputs guarantee that published metrics can be reproduced to within ±1 % overall accuracy and ±0.004 RMSE.
+
+Potential applications include geothermal alteration mapping, critical‑mineral prospecting, ice‑sheet sediment characterisation, and autonomous rover vision. Researchers can rapidly retarget the CNN to new sensors or lithologies by replacing the spectral libraries and adjusting a single `config.yaml` file.
+
 ### (Code Companion to the Manuscript:
 
 *Revealing Critical Mineralogical Insights in Extreme Environments Using Deep‑Learning on PRISMA Hyperspectral Imagery – Dry Valleys, South Victoria Land, Antarctica*)
@@ -126,9 +139,11 @@ The following diagram summarises the recommended execution order:
 
 ### 1️⃣ Spectral‑Library Augmentation
 
+> **Input requirement:** The spectral profiles you supply \*\*must be exported from \*\****ENVI Classic*** as paired `.hdr` files. Libraries saved in newer ENVI variants can lack essential wavelength metadata, causing the augmentation script to fail.
+
 ```bash
 $ python Augmentation_for_shaire.py \
-      --input r"C:\path\to\ASCL_library.sli" \
+      --input r"C:\path\to\ASCL_library" \
       --output Vegetation.txt \
       --iterations 30 --offset 0.01
 ```
@@ -142,8 +157,8 @@ Modify `initial_offset`, `increment` and `num_iterations` in‑code or expose th
 
 ```bash
 $ python AVCA_for_shairing.py \
-      --raster r"C:\path\prisma\scene.dat" \
-      --mask   r"C:\path\mask.dat" \
+      --raster r"C:\path\prisma\scene" \
+      --mask   r"C:\path\mask" \
       --hdr    r"C:\path\prisma\scene.hdr" \
       --R 15
 ```
@@ -157,9 +172,10 @@ The script internally estimates SNR and switches between projective & subspace p
 
 ```bash
 $ python CNN_for_shaire.py \
-      --rs       r"C:\path\prisma\scene.dat" \
+      --rs       r"C:\path\prisma\scene" \
       --hdr      r"C:\path\prisma\scene.hdr" \
-      --mask     r"C:\path\mask.dat" \
+      --mask     r"C:\path\mask" \
+      --hdr      r"C:\path\mask.hdr" \
       --sli_dir  r"C:\path\spectral_libraries" \
       --epochs   300 --batch_size 64
 ```
@@ -210,10 +226,7 @@ All outputs inherit geospatial metadata (map info & projection) from the input H
 
 ## Reproducibility Checklist
 
-* [x] All random seeds (`numpy`, `tensorflow`) fixed where relevant.
-* [x] Exact software versions specified in `requirements.txt`.
-* [x] Training/validation split reported (85 / 15 %).
-* [x] Model weights saved in‐memory; export hooks provided if persistence is required.
+*
 
 ---
 
@@ -247,7 +260,3 @@ Silva, J. M. P. Nascimento & J. M. B. Dias, "Vertex Component Analysis: a Fast A
 * Issues and pull requests are very welcome! If you discover bugs or have suggestions for improvement, please open an [issue](https://github.com/<YourUser>/hyperspectral‑mineral‑mapping/issues) and fill out the template.
 
 ---
-
-<div align="center">
-✨ *Happy Mapping!* ✨
-</div>
