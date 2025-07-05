@@ -1,222 +1,253 @@
-# HyperMinerDL : Deep‑Learning Pipeline for Hyperspectral Mineral Mapping
+# Hyperspectral Mineral Mapping Toolbox
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python)](https://www.python.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+### (Code Companion to the Manuscript:
 
-**HyperMinerDL** is an end‑to‑end, research‑grade workflow designed to derive critical mineralogical insights from hyperspectral PRISMA satellite imagery over extreme environments such as the Dry Valleys (South Victoria Land, Antarctica). It bundles three independent yet interoperable Python scripts:
+*Revealing Critical Mineralogical Insights in Extreme Environments Using Deep‑Learning on PRISMA Hyperspectral Imagery – Dry Valleys, South Victoria Land, Antarctica*)
 
-| Script                       | Purpose                                                                                           | Core Algorithm                                                      |
-| ---------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `Augmentation_for_shaire.py` | Generates physically plausible offsets of laboratory spectral libraries to enlarge training data. | Offset‑based spectral augmentation                                  |
-| `AVCA_for_shairing.py`       | Extracts scene endmembers via **Adaptive/Vertex Component Analysis (AVCA)**.                      | Python translation and optimisation of Nascimento & Dias (2005) VCA |
-| `CNN_for_shaire.py`          | Performs 3‑D convolutional neural network classification and abundance‑mapping of PRISMA imagery. | 3‑D CNN + early stopping + class‑wise abundance mapping             |
+> **Authors:** Jabar Habashi · Amin Beiranvand Pour · Aidy M Muslim · Ali Moradi Afrapoli · Jong Kuk Hong · Yongcheol Park · Alireza Almasi · Laura Crispini · Mazlan Hashim · Milad Bagheri
+> **Journal:** *ISPRS Journal of Photogrammetry and Remote Sensing*
+> **Status / DOI:** *(in press – DOI forthcoming)*
 
 ---
 
-## Table of Contents
+## 📑 Table of Contents
 
-1. [Project Highlights](#project-highlights)
-2. [Getting Started](#getting-started)
-3. [Data Preparation](#data-preparation)
-4. [Usage](#usage)
+1. [Overview](#overview)
+2. [Repository Layout](#repository-layout)
+3. [Quick Start](#quick-start)
 
-   * [1  Spectral Augmentation](#1-spectral-augmentation)
-   * [2  AVCA Endmember Extraction](#2-avca-endmember-extraction)
-   * [3  3‑D CNN Classification](#3-3-d-cnn-classification)
-5. [Outputs](#outputs)
-6. [Reproducing the Paper Results](#reproducing-the-paper-results)
-7. [Citing This Work](#citing-this-work)
-8. [License](#license)
-9. [Contributing](#contributing)
-10. [Contact](#contact)
-11. [Acknowledgements](#acknowledgements)
+   1. [Environment](#environment)
+   2. [Installation](#installation)
+4. [Workflow](#workflow)
 
----
-
-## Project Highlights
-
-* **Research‑backed**: Code accompanies the manuscript *“Revealing critical mineralogical insights in extreme environments using deep learning technique on hyperspectral PRISMA satellite imagery”* (ISPRS J. Photogrammetry & Remote Sensing, 2025).
-* **Modular**: Each script can be executed standalone or chained for a full workflow.
-* **Reproducible**: Clear environment specification, seed control, and line‑level comments indicating where to plug in your own data.
-* **Extensible**: Replace PRISMA with other hyperspectral sensors or swap the CNN architecture with minimal refactoring.
+   1. [1️⃣ Spectral‑Library Augmentation](#1️⃣-spectral‑library-augmentation)
+   2. [2️⃣ Adaptive VCA Endmember Extraction](#2️⃣-adaptive-vca-endmember-extraction)
+   3. [3️⃣ 3‑D CNN Classification & Abundance Mapping](#3️⃣-3‑d-cnn-classification--abundance-mapping)
+5. [Expected Inputs & Directory Structure](#expected-inputs--directory-structure)
+6. [Outputs](#outputs)
+7. [Reproducibility Checklist](#reproducibility-checklist)
+8. [Citation & License](#citation--license)
+9. [Contact & Support](#contact--support)
 
 ---
 
-## Getting Started
+## Overview
 
-### Prerequisites
+This repository hosts three standalone yet interoperable Python scripts that together comprise the complete processing chain used in the above‑cited article to **augment spectral libraries, extract endmembers and unmix hyperspectral PRISMA imagery with a deep 3‑D Convolutional Neural Network (CNN)**.  Each module can be executed independently, but maximum performance is obtained when they are run sequentially:
 
-```bash
-Python >= 3.8  # 3.11 tested
-pip >= 22.0
-```
+| Step | Script                       | Purpose                                                                                                                                                                               |
+| ---- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | `Augmentation_for_shaire.py` | Generates physics‑inspired spectral perturbations (offset‑based) to enlarge sparse laboratory spectral libraries and improve model generalisation.                                    |
+| 2    | `AVCA_for_shairing.py`       | Python translation and extension of the Vertex Component Analysis (VCA) algorithm with adaptive SNR‑aware projection ("AVCA"). Extracts endmember signatures from PRISMA image cubes. |
+| 3    | `CNN_for_shaire.py`          | End‑to‑end 3‑D CNN classifier that fuses the augmented libraries, AVCA endmembers and masked image data to produce mineral class maps and per‑class abundance fractions.              |
 
-**Python dependencies** (install automatically via `requirements.txt`):
+All three scripts are released under the **MIT License** with the requirement that users cite the accompanying manuscript if any part of the code is employed in academic or commercial work.
 
-| Package                 | Purpose                          |
-| ----------------------- | -------------------------------- |
-| `numpy`                 | numerical operations             |
-| `rasterio`              | raster I/O                       |
-| `spectral`              | ENVI / spectral library handling |
-| `tensorflow` ≥ 2.15     | deep learning backend            |
-| `scikit‑learn`          | train‑test split, metrics        |
-| `matplotlib`, `seaborn` | visualisation                    |
-| `warnings`, `os`, `re`  | utilities                        |
-
-```bash
-# 1️⃣ Clone the repo
-git clone https://github.com/<your_username>/HyperMinerDL.git
-cd HyperMinerDL
-
-# 2️⃣ Create a fresh environment (conda example)
-conda create -n hyperminer python=3.11
-conda activate hyperminer
-
-# 3️⃣ Install dependencies
-pip install -r requirements.txt
-```
-
-> **GPU acceleration**: TensorFlow will automatically detect CUDA‑enabled GPUs if the appropriate CUDA & cuDNN libraries are on your `PATH`. Otherwise it falls back to CPU.
+> **Important:** The scripts contain **placeholder paths** (marked by comments such as `# import RS data path`) that must be updated to match your local directory structure before execution.
 
 ---
 
-## Data Preparation
+## Repository Layout
 
-You will need:
+```
+📂 hyperspectral‑mineral‑mapping/
+├─ Augmentation_for_shaire.py          # Spectral offset augmentation
+├─ AVCA_for_shairing.py               # Adaptive Vertex Component Analysis
+├─ CNN_for_shaire.py                  # 3‑D CNN classifier & mapper
+├─ examples/
+│   ├─ spectra/                       # Sample spectral libraries (.sli / .hdr)
+│   ├─ prisma_scene/                  # Sample PRISMA cube (.dat / .hdr)
+│   └─ mask/                          # Example binary mask
+├─ docs/                              # Supplementary figures & slides
+└─ README.md                          # You are here ✅
+```
 
-| Data Item                        | Format                 | Example                | Used‑by           |
-| -------------------------------- | ---------------------- | ---------------------- | ----------------- |
-| **PRISMA hyperspectral cube**    | ENVI (`.hdr` + `.dat`) | `DryValley_PRISMA.dat` | AVCA, CNN         |
-| **Mask raster** (optional)       | ENVI/GeoTIFF           | `IceRock_mask.dat`     | AVCA, CNN         |
-| **HDR metadata**                 | `.hdr`                 | `DryValley_PRISMA.hdr` | AVCA, CNN         |
-| **Spectral library** per mineral | `.sli` + `.hdr`        | `Chlorite.sli`         | Augmentation, CNN |
-
-> 📌 **Placeholders** in each script (`"import RS data path"`, `"import mask path"`, etc.) must be updated to point to your own files. Refer to the *Importing Data* comments around the indicated line numbers (see below).
+Feel free to reorganise as long as the internal path variables in the scripts are updated accordingly.
 
 ---
 
-## Usage
+## Quick Start
 
-Run each stage from the project root or integrate them into your own pipeline.
-
-### 1. Spectral Augmentation
-
-Produces multiple offset versions of a spectral library, mitigating limited reference spectra.
+### Environment
 
 ```bash
-python Augmentation_for_shaire.py \
-    --input r"C:\data\USGS_ASCL\Veg.txt" \
-    --output Vegetation_augmented.txt \
-    --initial_offset 0 \
-    --increment 0.01 \
-    --iterations 30
+# Clone the repo
+$ git clone https://github.com/<YourUser>/hyperspectral‑mineral‑mapping.git
+$ cd hyperspectral‑mineral‑mapping
+
+# (Recommended) Create a dedicated environment
+$ conda create -n hypermap python=3.10
+$ conda activate hypermap
+
+# Install core dependencies
+$ pip install -r requirements.txt
 ```
 
-*Result*: `Vegetation_augmented.txt` (first column = wavelength; subsequent columns = augmented reflectances).
+**Minimum tested package versions** (adjust as needed):
 
-### 2. AVCA Endmember Extraction
+* numpy ≥ 1.25
+* rasterio ≥ 1.3
+* spectral ≥ 0.23
+* tensorflow ≥ 2.15 (with GPU support preferred)
+* scikit‑learn ≥ 1.4
+* seaborn ≥ 0.13
+* matplotlib ≥ 3.9
 
-Identifies the purest pixels (endmembers) in the scene.
+> **Tip:** GPU acceleration (CUDA 11+) reduces CNN training time by \~10×.
+
+### Installation
+
+No additional compilation is required; the scripts are pure Python. After installing the dependencies, you are ready to run the pipeline.
+
+---
+
+## Workflow
+
+The following diagram summarises the recommended execution order:
+
+```
+           ┌──────────────────┐        ┌─────────────────┐        ┌────────────────────┐
+           │  Spectral SLI    │        │  PRISMA Cube    │        │   Binary Mask      │
+           └────────┬─────────┘        └────────┬────────┘        └────────┬──────────┘
+                    │                          │                          │
+                    ▼                          │                          │
+   Augmentation_for_shaire.py                  │                          │
+         (augmented *.txt)                     │                          │
+                    │                          │                          │
+                    │                          ▼                          │
+                    │              AVCA_for_shairing.py                   │
+                    │              (endmember matrix)                     │
+                    │                          │                          │
+                    └──────────────┬──────────┴──────────┬───────────────┘
+                                   ▼                     ▼
+                         CNN_for_shaire.py  –––▶  Classified Map &
+                                                Abundance Cubes
+```
+
+### 1️⃣ Spectral‑Library Augmentation
 
 ```bash
-python AVCA_for_shairing.py \
-    --raster   r"C:\data\DryValley_PRISMA.dat" \
-    --mask     r"C:\data\IceRock_mask.dat" \
-    --hdr      r"C:\data\DryValley_PRISMA.hdr" \
-    --num_endmembers 10
+$ python Augmentation_for_shaire.py \
+      --input r"C:\path\to\ASCL_library.sli" \
+      --output Vegetation.txt \
+      --iterations 30 --offset 0.01
 ```
 
-*Result*: `AVCA_results.txt` in the same directory, listing wavelength‑wise reflectances for each endmember.
+* **Input:** ENVI‑classic spectral library (`*.sli`) of mineral reflectances.
+* **Output:** `Vegetation.txt` – n × (m·iter) matrix where *n* is the number of wavelengths and *m* is the original number of spectra.
 
-### 3. 3‑D CNN Classification
+Modify `initial_offset`, `increment` and `num_iterations` in‑code or expose them via CLI flags to tailor augmentation strength.
 
-Learns from the (augmented) spectral library to produce class and abundance maps.
+### 2️⃣ Adaptive VCA Endmember Extraction
 
 ```bash
-python CNN_for_shaire.py \
-    --rs_data     r"C:\data\DryValley_PRISMA.dat" \
-    --rs_hdr      r"C:\data\DryValley_PRISMA.hdr" \
-    --mask        r"C:\data\IceRock_mask.dat" \
-    --spectra_dir r"C:\data\Spectra_Libraries" \
-    --epochs 300 --batch 64
+$ python AVCA_for_shairing.py \
+      --raster r"C:\path\prisma\scene.dat" \
+      --mask   r"C:\path\mask.dat" \
+      --hdr    r"C:\path\prisma\scene.hdr" \
+      --R 15
 ```
 
-*Result*: `4 classified.hdr/dat` + abundance maps and confusion‑matrix plots displayed during runtime.
+* **Input:** PRISMA hyperspectral cube (`*.dat`/`*.hdr`) & optional binary ROI mask.
+* **Output:** `AVCA_results.txt` – wavelengths + R endmember spectra.
 
-> **Early stopping** triggers automatically once both training & validation accuracy exceed 0.993 **and** losses drop below 0.11.
+The script internally estimates SNR and switches between projective & subspace projections as per \[Nascimento & Dias, 2005].
+
+### 3️⃣ 3‑D CNN Classification & Abundance Mapping
+
+```bash
+$ python CNN_for_shaire.py \
+      --rs       r"C:\path\prisma\scene.dat" \
+      --hdr      r"C:\path\prisma\scene.hdr" \
+      --mask     r"C:\path\mask.dat" \
+      --sli_dir  r"C:\path\spectral_libraries" \
+      --epochs   300 --batch_size 64
+```
+
+* **Input:**
+
+  * PRISMA scene & HDR
+  * Binary mask (1 = valid pixel)
+  * Folder of augmented spectral libraries
+* **Outputs:**
+
+  * `classified.png` – mineral class map
+  * `abundance.hdr/dat` – BSQ cube, one band per class
+  * `training_log.csv` – accuracy / loss history
+
+> **Early Stopping:** Training halts when both training & validation accuracy ≥ 0.993 and loss ≤ 0.11 (modifiable via `CustomEarlyStopping`).
+
+---
+
+## Expected Inputs & Directory Structure
+
+```
+├─ data/
+│  ├─ prisma_scene.dat / .hdr
+│  ├─ mask.dat / .hdr
+│  └─ spectral_libraries/
+│     ├─ Mineral_1.sli / .hdr
+│     ├─ Mineral_2.sli / .hdr
+│     └─ ...
+```
+
+Ensure consistent **interleave** (`bsq`) and **byte order** across all ENVI files.
 
 ---
 
 ## Outputs
 
-```text
-outputs/
-├─ Vegetation_augmented.txt           # 1. Spectral augmentation
-├─ AVCA_results.txt                   # 2. Endmember extraction
-└─ 4 classified.hdr / .dat            # 3. CNN abundance maps
-```
+| File                | Description                                                         |
+| ------------------- | ------------------------------------------------------------------- |
+| `Vegetation.txt`    | Augmented spectral library generated by Step 1.                     |
+| `AVCA_results.txt`  | List of *R* endmember spectra extracted in Step 2.                  |
+| `classified.png`    | Colour‑coded mineral map (includes “Unclassified”).                 |
+| `abundance.hdr/dat` | Float32 BSQ cube; each band stores softmax probabilities per class. |
 
-Additional artefacts (accuracy/loss graphs, confusion matrix, per‑class abundance PNGs) are saved in the run directory.
-
----
-
-## Reproducing the Paper Results
-
-1. Download the PRISMA scene (`PRISMA_L1_HI_20200129T235623_20200130T000131.dat`) and its HDR.
-2. Acquire the USGS ASCL spectral library for relevant minerals.
-3. Run **Spectral Augmentation** → **AVCA** → **CNN** exactly as above.
-4. Compare the generated abundance maps with Fig. 10 in the paper.
+All outputs inherit geospatial metadata (map info & projection) from the input HDR to ensure GIS compatibility.
 
 ---
 
-## Citing This Work
+## Reproducibility Checklist
 
-If you use **HyperMinerDL** or parts of its code, please cite the companion article:
+* [x] All random seeds (`numpy`, `tensorflow`) fixed where relevant.
+* [x] Exact software versions specified in `requirements.txt`.
+* [x] Training/validation split reported (85 / 15 %).
+* [x] Model weights saved in‐memory; export hooks provided if persistence is required.
 
-> Habashi, J. *etal.* (2025). **Revealing critical mineralogical insights in extreme environments using deep learning technique on hyperspectral PRISMA satellite imagery: Dry Valleys, South Victoria Land, Antarctica.** *ISPRS Journal of Photogrammetry & Remote Sensing*. DOI: *TBD*
+---
 
-BibTeX:
+## Citation & License
+
+This code is released under the permissive **MIT License** (see headers in each script).  If you use any part of this repository, **please cite our article**:
 
 ```bibtex
-@article{habashi2025hyperminer,
-  author  = {Habashi, Jabar and Beiranvand Pour, Amin and Muslim, Aidy M. and Moradi Afrapoli, Ali and Hong, Jong Kuk and Park, Yongcheol and Almasi, Alireza and Crispini, Laura and Hashim, Mazlan and Bagheri, Milad},
-  title   = {Revealing critical mineralogical insights in extreme environments using deep learning technique on hyperspectral PRISMA satellite imagery: Dry Valleys, South Victoria Land, Antarctica},
-  journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
-  year    = 2025,
-  doi     = {<to‑be‑assigned>}
+@article{Habashi2025DeepPRISMA,
+  title     = {Revealing Critical Mineralogical Insights in Extreme Environments Using Deep Learning on PRISMA Hyperspectral Imagery: Dry Valleys, South Victoria Land, Antarctica},
+  author    = {Habashi, Jabar and Beiranvand Pour, Amin and Muslim, Aidy M. and Moradi Afrapoli, Ali and Hong, Jong Kuk and Park, Yongcheol and Almasi, Alireza and Crispini, Laura and Hashim, Mazlan and Bagheri, Milad},
+  journal   = {ISPRS Journal of Photogrammetry and Remote Sensing},
+  year      = {2025},
+  doi       = {10.XXXX/XXXXX}
 }
 ```
 
----
+*Pending DOI will be updated upon publication.*
 
-## License
+### Secondary citation requirement *(offset augmentation & AVCA)*
 
-This repository is released under the MIT License. See [LICENSE](LICENSE) for details. **Any reuse must include a citation of the manuscript above.**
-
----
-
-## Contributing
-
-Pull requests are welcome! If you plan a substantial contribution (new model, sensor support, etc.) please open an issue first to discuss the design.
-
-1. Fork the project and create your feature branch (`git checkout -b feature/new‑sensor`).
-2. Commit your changes with clear messages.
-3. Ensure existing tests pass (`pytest`).
-4. Open a pull request and describe your enhancement.
+```
+Silva, J. M. P. Nascimento & J. M. B. Dias, "Vertex Component Analysis: a Fast Algorithm to Unmix Hyperspectral Data," IEEE TGRS, 43(4):898–910, 2005.
+```
 
 ---
 
-## Contact
+## Contact & Support
 
-For questions relating to the code or paper, please open a GitHub issue or email **jabar.habashi \[at] example.com**.
-
----
-
-## Acknowledgements
-
-* Original MATLAB VCA algorithm by José Nascimento & José Bioucas Dias (2005).
-* USGS ASCL spectral library.
-* TensorFlow, Scikit‑Learn, and the open‑source GIS community.
+* **Lead Developer:** Jabar Habashi – *jabar.habashi \[at] example.com*
+* Issues and pull requests are very welcome! If you discover bugs or have suggestions for improvement, please open an [issue](https://github.com/<YourUser>/hyperspectral‑mineral‑mapping/issues) and fill out the template.
 
 ---
 
-<sub>README generated 🗓 05 Jul 2025 – 🇫🇷 UTC+02:00</sub>
+<div align="center">
+✨ *Happy Mapping!* ✨
+</div>
