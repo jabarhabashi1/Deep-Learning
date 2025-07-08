@@ -5,7 +5,7 @@ This repository provides an **end‑to‑end, research‑grade workflow** for qu
 
 **Scientific scope and capabilities**
 
-* **Sensor coverage** – validated on PRISMA (400–2500 nm, 30 m, 239 bands) but configurable for AVIRIS‑NG, HyMap, EnMAP, DESIS, or laboratory cubes with minimal code changes.
+* **Sensor coverage** – validated on PRISMA (400–2500 nm, 30 m, 239 bands) but configurable for EMIT, AVIRIS‑NG, HyMap, EnMAP, DESIS, or laboratory cubes with minimal code changes.
 * **Spectral‑library augmentation** – stochastic offset perturbation, sub‑pixel mixture synthesis, and band‑specific noise injection generate >10 000 physically plausible reflectance spectra per class, mitigating class imbalance and enhancing model generalisation under novel illumination conditions.
 * **Adaptive VCA (AVCA)** – automatically estimates the intrinsic dimensionality *R* via Harsanyi’s virtual dimensionality (VD) test and employs SNR‑aware orthogonal projections to derive robust endmembers even under low contrast (SNR < 30 dB) and ice‑dust contamination.
 * **3‑D CNN classifier + soft‑unmixer** – an 8‑layer, 1.25 M‑parameter network with residual shortcuts that jointly learns spatial–spectral patterns in 27 × 27 × R hyper‑patches, outputting both crisp categorical maps and continuous abundance cubes through a dual‑branch Dice‑Focal loss architecture.
