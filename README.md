@@ -237,7 +237,7 @@ This code is released under the permissive **MIT License** (see headers in each 
 ```bibtex
 @article{Habashi2025DeepPRISMA,
   title     = {Revealing Critical Mineralogical Insights in Extreme Environments Using Deep Learning on PRISMA Hyperspectral Imagery: Dry Valleys, South Victoria Land, Antarctica},
-  author    = {Habashi, Jabar and Beiranvand Pour, Amin and Muslim, Aidy M. and Moradi Afrapoli, Ali and Hong, Jong Kuk and Park, Yongcheol and Almasi, Alireza and Crispini, Laura and Hashim, Mazlan and Bagheri, Milad},
+  author    = {Habashi, Jabar. Pour, Amin Beiranvand, Muslim, Aidy M. Moradi Afrapoli, Ali. Hong, Jong Kuk. Park, Yongcheol. Almasi, Alireza. Crispini, Laura. Hashim, Mazlan. Bagheri, Milad},
   journal   = {ISPRS Journal of Photogrammetry and Remote Sensing},
   year      = {2025},
   doi       = {10.XXXX/XXXXX}
