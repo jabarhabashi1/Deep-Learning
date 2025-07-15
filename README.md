@@ -18,8 +18,8 @@ Potential applications include geothermal alteration mapping, critical‑mineral
 *Revealing Critical Mineralogical Insights in Extreme Environments Using Deep‑Learning on PRISMA Hyperspectral Imagery – Dry Valleys, South Victoria Land, Antarctica*)
 
 > **Authors:** Jabar Habashi · Amin Beiranvand Pour · Aidy M Muslim · Ali Moradi Afrapoli · Jong Kuk Hong · Yongcheol Park · Alireza Almasi · Laura Crispini · Mazlan Hashim · Milad Bagheri
-> **Journal:** *ISPRS Journal of Photogrammetry and Remote Sensing*
-> **Status / DOI:** *(in press – DOI forthcoming)*
+> **Journal:** *ISPRS Journal of Photogrammetry and Remote Sensing 228, 83–121.*
+> **Status / DOI:**[ ](https://doi.org/https://doi.org/10.1016/j.isprsjprs.2025.07.005)*
 
 ---
 
@@ -235,16 +235,9 @@ All outputs inherit geospatial metadata (map info & projection) from the input H
 This code is released under the permissive **MIT License** (see headers in each script).  If you use any part of this repository, **please cite our article**:
 
 ```bibtex
-@article{Habashi2025DeepPRISMA,
-  title     = {Revealing Critical Mineralogical Insights in Extreme Environments Using Deep Learning on PRISMA Hyperspectral Imagery: Dry Valleys, South Victoria Land, Antarctica},
-  author    = {Habashi, Jabar. Pour, Amin Beiranvand, Muslim, Aidy M. Moradi Afrapoli, Ali. Hong, Jong Kuk. Park, Yongcheol. Almasi, Alireza. Crispini, Laura. Hashim, Mazlan. Bagheri, Milad},
-  journal   = {ISPRS Journal of Photogrammetry and Remote Sensing},
-  year      = {2025},
-  doi       = {10.XXXX/XXXXX}
-}
+Habashi, J., Pour, A.B., Muslim, A.M., Afrapoli, A.M., Hong, J.K., Park, Y., Almasi, A., Crispini, L., Hashim, M., Bagheri, M., 2025. Revealing critical mineralogical insights in extreme environments using deep learning technique on hyperspectral PRISMA satellite imagery: Dry Valleys, South Victoria Land, Antarctica. ISPRS Journal of Photogrammetry and Remote Sensing 228, 83–121. https://doi.org/https://doi.org/10.1016/j.isprsjprs.2025.07.005
 ```
 
-*Pending DOI will be updated upon publication.*
 
 ### Secondary citation requirement *(VCA)*
 
