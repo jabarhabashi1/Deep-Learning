@@ -19,7 +19,7 @@ Potential applications include geothermal alteration mapping, critical‑mineral
 
 > **Authors:** Jabar Habashi · Amin Beiranvand Pour · Aidy M Muslim · Ali Moradi Afrapoli · Jong Kuk Hong · Yongcheol Park · Alireza Almasi · Laura Crispini · Mazlan Hashim · Milad Bagheri
 > **Journal:** *ISPRS Journal of Photogrammetry and Remote Sensing 228, 83–121.*
-> **Status / DOI:**[ ](https://doi.org/https://doi.org/10.1016/j.isprsjprs.2025.07.005)*
+> **Status / DOI:**[10.1016/j.isprsjprs.2025.07.005](https://doi.org/https://doi.org/10.1016/j.isprsjprs.2025.07.005)*
 
 ---
 
