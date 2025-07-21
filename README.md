@@ -235,7 +235,7 @@ All outputs inherit geospatial metadata (map info & projection) from the input H
 This code is released under the permissive **MIT License** (see headers in each script).  If you use any part of this repository, **please cite our article**:
 
 ```bibtex
-Habashi, J., Pour, A.B., Muslim, A.M., Afrapoli, A.M., Hong, J.K., Park, Y., Almasi, A., Crispini, L., Hashim, M., Bagheri, M., 2025. Revealing critical mineralogical insights in extreme environments using deep learning technique on hyperspectral PRISMA satellite imagery: Dry Valleys, South Victoria Land, Antarctica. ISPRS Journal of Photogrammetry and Remote Sensing 228, 83–121. https://doi.org/https://doi.org/10.1016/j.isprsjprs.2025.07.005
+Habashi, J., Pour, A.B., Muslim, A.M., Afrapoli, A.M., Hong, J.K., Park, Y., Almasi, A., Crispini, L., Hashim, M., Bagheri, M., 2025. Revealing critical mineralogical insights in extreme environments using deep learning technique on hyperspectral PRISMA satellite imagery: Dry Valleys, South Victoria Land, Antarctica. ISPRS Journal of Photogrammetry and Remote Sensing 228, 83–121. https://doi.org/10.1016/j.isprsjprs.2025.07.005
 ```
 
 
