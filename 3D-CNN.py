@@ -9,7 +9,7 @@ using deep learning technique on hyperspectral PRISMA satellite imagery: Dry Val
 authors: Jabar Habashi,, Amin Beiranvand Pour, Aidy M Muslim, Ali Moradi Afrapoli, Jong Kuk Hong, Yongcheol Park,
 Alireza Almasi, Laura Crispini, Mazlan Hashim and Milad Bagheri
 Journal: ISPRS Journal of Photogrammetry and Remote Sensing
-DOI:
+https://doi.org/10.1016/j.isprsjprs.2025.07.005.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Code"), to deal in the Software without restriction, including without limitation
