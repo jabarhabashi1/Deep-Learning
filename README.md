@@ -13,7 +13,7 @@ This repository provides an **end‑to‑end, research‑grade workflow** for qu
 
 Potential applications include geothermal alteration mapping, critical‑mineral prospecting, ice‑sheet sediment characterisation, and autonomous rover vision. Researchers can rapidly retarget the CNN to new sensors or lithologies by replacing the spectral libraries and adjusting a single `config.yaml` file.
 
-### (Code Companion to the Article:
+### (Code Companion to the Article):
 
 *Revealing Critical Mineralogical Insights in Extreme Environments Using Deep‑Learning on PRISMA Hyperspectral Imagery – Dry Valleys, South Victoria Land, Antarctica*)
 
