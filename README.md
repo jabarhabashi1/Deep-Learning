@@ -50,9 +50,9 @@ This repository hosts three standalone yet interoperable Python scripts that tog
 
 | Step | Script                       | Purpose                                                                                                                                                                               |
 | ---- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1    | `Augmentation_for_shaire.py` | Generates physics‑inspired spectral perturbations (offset‑based) to enlarge sparse laboratory spectral libraries and improve model generalisation.                                    |
-| 2    | `AVCA_for_shairing.py`       | Python translation and extension of the Vertex Component Analysis (VCA) algorithm with adaptive SNR‑aware projection ("AVCA"). Extracts endmember signatures from PRISMA image cubes. |
-| 3    | `CNN_for_shaire.py`          | End‑to‑end 3‑D CNN classifier that fuses the augmented libraries, AVCA endmembers and masked image data to produce mineral class maps and per‑class abundance fractions.              |
+| 1    | `Spectral Augmentation.py` | Generates physics‑inspired spectral perturbations (offset‑based) to enlarge sparse laboratory spectral libraries and improve model generalisation.                                    |
+| 2    | `AVCA.py`       | Python translation and extension of the Vertex Component Analysis (VCA) algorithm with adaptive SNR‑aware projection ("AVCA"). Extracts endmember signatures from PRISMA image cubes. |
+| 3    | `3D-CNN.py`          | End‑to‑end 3‑D CNN classifier that fuses the augmented libraries, AVCA endmembers and masked image data to produce mineral class maps and per‑class abundance fractions.              |
 
 All three scripts are released under the **MIT License** with the requirement that users cite the accompanying article if any part of the code is employed in academic or commercial work.
 
@@ -64,9 +64,9 @@ All three scripts are released under the **MIT License** with the requirement th
 
 ```
 📂 hyperspectral‑mineral‑mapping/
-├─ Augmentation_for_shaire.py          # Spectral offset augmentation
-├─ AVCA_for_shairing.py               # Adaptive Vertex Component Analysis
-├─ CNN_for_shaire.py                  # 3‑D CNN classifier & mapper
+├─ Spectral Augmentation.py           # Spectral offset augmentation
+├─ AVCA.py                            # Adaptive Vertex Component Analysis
+├─ 3D-CNN.py                          # 3‑D CNN classifier & mapper
 ├─ examples/
 │   ├─ spectra/                       # Sample spectral libraries (.sli / .hdr)
 │   ├─ prisma_scene/                  # Sample PRISMA cube (.dat / .hdr)
@@ -124,17 +124,17 @@ The following diagram summarises the recommended execution order:
            └────────┬─────────┘        └────────┬────────┘        └────────┬──────────┘
                     │                          │                          │
                     ▼                          │                          │
-   Augmentation_for_shaire.py                  │                          │
+       Spectral Augmentation.py                │                          │
          (augmented *.txt)                     │                          │
                     │                          │                          │
                     │                          ▼                          │
-                    │              AVCA_for_shairing.py                   │
+                    │                        AVCA.py                      │
                     │              (endmember matrix)                     │
                     │                          │                          │
                     └──────────────┬──────────┴──────────┬───────────────┘
                                    ▼                     ▼
-                         CNN_for_shaire.py  –––▶  Classified Map &
-                                                Abundance Cubes
+                                3D-CNN.py  –––▶  Classified Map &
+                                         Abundance Cubes
 ```
 
 ### 1️⃣ Spectral‑Library Augmentation
@@ -142,7 +142,7 @@ The following diagram summarises the recommended execution order:
 > **Input requirement:** The spectral profiles you supply \*\*must be exported from \*\****ENVI Classic*** as paired `.hdr` files. Libraries saved in newer ENVI variants can lack essential wavelength metadata, causing the augmentation script to fail.
 
 ```bash
-$ python Augmentation_for_shaire.py \
+$ python Spectral Augmentation.py \
       --input r"C:\path\to\ASCL_library" \
       --output Vegetation.txt \
       --iterations 30 --offset 0.01
