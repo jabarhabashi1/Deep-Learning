@@ -21,7 +21,7 @@ portions of the Software.
 2. Any use of the Software must include a citation of the manuscript titled _Habashi, Jabar, Amin B. Pour, Aidy M. Muslim, Ali M. Afrapoli, Jong K. Hong, Yongcheol Park,
 Alireza Almasi, Laura Crispini, Mazlan Hashim, and Milad Bagheri. "Revealing Critical Mineralogical Insights in Extreme Environments Using Deep Learning Technique
 on Hyperspectral PRISMA Satellite Imagery: Dry Valleys, South Victoria Land, Antarctica."
-ISPRS Journal of Photogrammetry and Remote Sensing 228, (2025): 83-121. https://doi.org/10.1016/j.isprsjprs.2025.07.005.._
+ISPRS Journal of Photogrammetry and Remote Sensing 228, (2025): 83-121. https://doi.org/10.1016/j.isprsjprs.2025.07.005._
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
 INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
