@@ -13,7 +13,7 @@ This repository provides an **end‑to‑end, research‑grade workflow** for qu
 
 Potential applications include geothermal alteration mapping, critical‑mineral prospecting, ice‑sheet sediment characterisation, and autonomous rover vision. Researchers can rapidly retarget the CNN to new sensors or lithologies by replacing the spectral libraries and adjusting a single `config.yaml` file.
 
-### (Code Companion to the Manuscript:
+### (Code Companion to the Article:
 
 *Revealing Critical Mineralogical Insights in Extreme Environments Using Deep‑Learning on PRISMA Hyperspectral Imagery – Dry Valleys, South Victoria Land, Antarctica*)
 
@@ -54,7 +54,7 @@ This repository hosts three standalone yet interoperable Python scripts that tog
 | 2    | `AVCA_for_shairing.py`       | Python translation and extension of the Vertex Component Analysis (VCA) algorithm with adaptive SNR‑aware projection ("AVCA"). Extracts endmember signatures from PRISMA image cubes. |
 | 3    | `CNN_for_shaire.py`          | End‑to‑end 3‑D CNN classifier that fuses the augmented libraries, AVCA endmembers and masked image data to produce mineral class maps and per‑class abundance fractions.              |
 
-All three scripts are released under the **MIT License** with the requirement that users cite the accompanying manuscript if any part of the code is employed in academic or commercial work.
+All three scripts are released under the **MIT License** with the requirement that users cite the accompanying article if any part of the code is employed in academic or commercial work.
 
 > **Important:** The scripts contain **placeholder paths** (marked by comments such as `# import RS data path`) that must be updated to match your local directory structure before execution.
 
