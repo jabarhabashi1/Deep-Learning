@@ -19,8 +19,10 @@ and to permit persons to whom the Software is furnished to do so, subject to the
 
 1. The above copyright notice and this permission notice shall be included in all copies or substantial
 portions of the Software.
-2. Any use of the Software must include a citation of the manuscript titled _Deep Learning Integration of ASTER
-and PRISMA Satellite Imagery for Alteration Mineral Mapping in Dry Valley, South Victoria Land, Antarctica._
+2. Any use of the Software must include a citation of the manuscript titled _Habashi, Jabar, Amin B. Pour, Aidy M. Muslim, Ali M. Afrapoli, Jong K. Hong, Yongcheol Park,
+Alireza Almasi, Laura Crispini, Mazlan Hashim, and Milad Bagheri. "Revealing Critical Mineralogical Insights in Extreme Environments Using Deep Learning Technique
+on Hyperspectral PRISMA Satellite Imagery: Dry Valleys, South Victoria Land, Antarctica."
+ISPRS Journal of Photogrammetry and Remote Sensing 228, (2025): 83-121. https://doi.org/10.1016/j.isprsjprs.2025.07.005._
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
 INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
@@ -37,7 +39,7 @@ J. M. P. Nascimento and J. M. B. Dias, "Vertex component analysis: a fast algori
 IEEE Transactions on Geoscience and Remote Sensing, vol. 43, no. 4, pp. 898-910, April 2005,
 doi: 10.1109/TGRS.2005.844293.
 
-***Read Line 198-201, and 216 For Importing The Data***
+***Read Line 200-203, and 218 For Importing The Data***
 """
 
 import sys
