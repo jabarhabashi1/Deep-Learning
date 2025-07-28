@@ -120,19 +120,19 @@ No additional compilation is required; the scripts are pure Python. After instal
 The following diagram summarises the recommended execution order:
 
 ```
-           ┌──────────────────┐      ┌─────────────────┐       ┌───────────────────┐
-           │  Spectral SLI    │      │  PRISMA Cube    │       │   Binary Mask     │
-           └────────┬─────────┘      └────────┬────────┘       └────────┬──────────┘
-                    │                         │                         │
-                    ▼                         │                         │
-       Spectral Augmentation.py               │                         │
-           (augmented *.txt)                  │                         │
-                    │                         │                         │
-                    │                         ▼                         │
-                    │                      AVCA.py                      │
-                    │                 (endmember matrix)                │
-                    │                         │                         │
-                    └──────────────┬──────────┴──────────┬──────────────┘
+           ┌──────────────────┐      ┌─────────────────┐      ┌─────────────────┐
+           │   Spectral SLI   │      │   PRISMA Cube   │      │   Binary Mask   │
+           └────────┬─────────┘      └────────┬────────┘      └────────┬────────┘
+                    │                         │                        │
+                    ▼                         │                        │
+       Spectral Augmentation.py               │                        │
+           (augmented *.txt)                  │                        │
+                    │                         │                        │
+                    │                         ▼                        │
+                    │                      AVCA.py                     │
+                    │                 (endmember matrix)               │
+                    │                         │                        │
+                    └──────────────┬──────────┴──────────┬─────────────┘
                                    ▼                     ▼
                                 3D-CNN.py  –––▶  Classified Map &
                                          Abundance Cubes
