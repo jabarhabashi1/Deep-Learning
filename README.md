@@ -1,5 +1,6 @@
 # Deep Learning-Based Toolbox for Hyperspectral Mineral Mapping
 
+
 **Description:**
 This repository provides an **end‑to‑end, research‑grade workflow** for quantitative mineral mapping from PRISMA (PRecursore IperSpettrale della Missione Applicativa) hyperspectral imagery. It spans every processing stage—from physics‑informed spectral‑library augmentation through adaptive endmember detection to a compact 3‑D Convolutional Neural Network (CNN)—and converts raw Level‑2D radiances into georeferenced mineral‐class and abundance maps that faithfully reproduce the results in our ISPRS JPRS article on the McMurdo Dry Valleys, Antarctica.
 
