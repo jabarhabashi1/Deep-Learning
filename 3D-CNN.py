@@ -3,11 +3,11 @@
 MIT License
 
 Copyright (c) 2025 Jabar_Habashi
-This code belongs to the manuscript titled _Revealing critical mineralogical insights in extreme environments
+This code belongs to the article titled _Revealing critical mineralogical insights in extreme environments
 using deep learning technique on hyperspectral PRISMA satellite imagery: Dry Valleys, South Victoria Land, Antarctica._
 
 authors: Jabar Habashi,, Amin Beiranvand Pour, Aidy M Muslim, Ali Moradi Afrapoli, Jong Kuk Hong, Yongcheol Park,
-Alireza Almasi, Laura Crispini, Mazlan Hashim and Milad Bagheri
+Alireza Almasi, Laura Crispini, Mazlan Hashim, and Milad Bagheri
 Journal: ISPRS Journal of Photogrammetry and Remote Sensing
 https://doi.org/10.1016/j.isprsjprs.2025.07.005.
 
@@ -436,3 +436,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
