@@ -3,7 +3,7 @@
 MIT License
 
 Copyright (c) 2025 Jabar_Habashi
-This code belongs to the manuscript titled _Revealing critical mineralogical insights in extreme environments
+This code belongs to the article titled _Revealing critical mineralogical insights in extreme environments
 using deep learning technique on hyperspectral PRISMA satellite imagery: Dry Valleys, South Victoria Land, Antarctica._
 
 authors: Jabar Habashi,, Amin Beiranvand Pour, Aidy M Muslim, Ali Moradi Afrapoli, Jong Kuk Hong, Yongcheol Park,
@@ -68,3 +68,4 @@ except FileNotFoundError:
     print(f"File '{input_file}' not found. Please make sure you entered the file path correctly.")
 except Exception as e:
     print(f"An error occurred: {e}")
+
