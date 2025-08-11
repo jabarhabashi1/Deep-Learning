@@ -250,7 +250,7 @@ Silva, J. M. P. Nascimento & J. M. B. Dias, "Vertex Component Analysis: a Fast A
 
 ## Contact & Support
 
-* **Lead Developer:** Jabar Habashi – *jabar.habashi \[at] example.com*
+* **Lead Developer:** Jabar Habashi – *j_habashi98 \[at] sut.ac.ir*
 * Issues and pull requests are very welcome! If you discover bugs or have suggestions for improvement, please open an [issue](https://github.com/<YourUser>/hyperspectral‑mineral‑mapping/issues) and fill out the template.
 
 ---
